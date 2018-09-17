@@ -51,7 +51,7 @@ client.on('message', async msg => { // eslint-disable-line
 	command = command.slice(PREFIX.length)
 
 	if (command === `play`) {
-		if (msg.member.voiceChannelID !== "490974384702619662") return msg.reply(`You should be in \`\`${client.channels.get("483035198150148097").name}\`\` to use me`);	
+		if (msg.member.voiceChannelID !== "491276003029549056") return msg.reply(`You should be in \`\`${client.channels.get("483035198150148097").name}\`\` to use me`);	
 		if (msg.channel.id !== "490974450360123393") return;
 		const voiceChannel = msg.member.voiceChannel;
 		if (!voiceChannel) return msg.channel.send('** You need to be in a voice channel :notes:**');
