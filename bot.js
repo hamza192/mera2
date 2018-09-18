@@ -1,5 +1,4 @@
-const { Client, Util } = require('discord.js');
-const Discord = require("discord.js");
+const { Client, Util, RichEmbed } = require('discord.js');
 const { PREFIX, GOOGLE_API_KEY } = require('./config');
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
@@ -51,9 +50,11 @@ client.on('message', async msg => { // eslint-disable-line
 	command = command.slice(PREFIX.length)
 
 	if (command === `play`) {
-		if (msg.member.voiceChannelID !== "491276003029549056") return msg.reply(`You should be in \`\`${client.channels.get("483035198150148097").name}\`\` to use me`);	
-		if (msg.channel.id !== "490974450360123393") return;
-		const voiceChannel = msg.member.voiceChannel;
+        const vchannel = '491276003029549056'
+        const tchannel = '490974450360123393'
+		if (msg.member.voiceChannelID !== channel) return msg.reply(`You should be in \`\`${client.channels.get(channel).name}\`\` to use me`);	
+		if (msg.channel.id !== tchannel) return msg.reply(`You should be in \`\`${client.channels.get(tchannel).name}\`\` to use me`);
+        const voiceChannel = msg.member.voiceChannel;
 		if (!voiceChannel) return msg.channel.send('** You need to be in a voice channel :notes:**');
 		const permissions = voiceChannel.permissionsFor(msg.client.user);
 		if (!permissions.has('CONNECT')) {
@@ -81,7 +82,7 @@ client.on('message', async msg => { // eslint-disable-line
 				try {
 					var videos = await youtube.searchVideos(searchString, 5);
 					let index = 0;
-					const embed1 = new Discord.RichEmbed()
+					const embed1 = new RichEmbed()
 			        .setAuthor(client.user.username, client.user.avatarURL)
 			        .setDescription(`__Choose the video number__ :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
@@ -131,7 +132,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 	} else if (command === `np`) {
 		if (msg.channel.id !== "490974450360123393") return;
 		if (!serverQueue) return msg.channel.send('There is nothing on deck');
-		const embedNP = new Discord.RichEmbed()
+		const embedNP = new RichEmbed()
 	.setDescription(`:notes: Now playing: **${serverQueue.songs[0].title}**`)
 	.setFooter("")
 		return msg.channel.sendEmbed(embedNP);
@@ -140,7 +141,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		
 		if (!serverQueue) return msg.channel.send('There is nothing playing.');
 		let index = 0;
-		const embedqu = new Discord.RichEmbed()
+		const embedqu = new RichEmbed()
 	.setDescription(`**Songs Queue**
 ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
 **Now playing** ${serverQueue.songs[0].title}`)
