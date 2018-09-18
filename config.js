@@ -1,3 +1,4 @@
+config.js
 exports.TOKEN = 'token';
 
 exports.PREFIX = '2';
